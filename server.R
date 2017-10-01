@@ -1,7 +1,7 @@
 library(shiny)
 library(shinythemes)
 require(Val2014)
-data_sets <- c(Riksdagsval=names(val2014()[[1]]),Landstingsvalval=names(val2014()[[2]]),Kommunval=names(val2014()[[2]]))
+data_sets <- names(val2014())
 shinyServer(function(input, output) {
   output$choose_dataset <- renderUI({
     selectInput("dataset", "Data set", data_sets)
