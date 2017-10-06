@@ -7,13 +7,13 @@ shinyServer(function(input, output) {
     selectInput("dataset", "Data set", data_sets)
     })
   output$choose_columns <- renderUI({
-    dat <<- get(input$dataset)
+    dat <- get(input$dataset)
     kommun <- dat$KOMMUN
     selectInput("columns", "Choose columns",choices  = kommun,selected = kommun)
   })
   output$data_table <- renderTable({
-    dat <<- get(input$dataset)
-    dat <<- dat[dat[,4]==input$columns,seq(6,20,2)]
+    dat <- get(input$dataset)
+    dat <- dat[dat[,4]==input$columns,seq(6,20,2)]
     names(dat)<-str_sub(names(dat), start=1,end= -6)
     dat
   })
