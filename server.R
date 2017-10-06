@@ -18,7 +18,7 @@ shinyServer(function(input, output) {
       if(is.null(input$valdata) | is.null(input$county))
         return()
       zz <- get(input$valdata)
-      valtyp_ <- names(input$county)
+      valtyp_ <- input$valdata
 
       kommun_ <- zz[zz[,4]==input$county,4]
       zz <- zz[zz[,4]==input$county,seq(6,20,2)]
