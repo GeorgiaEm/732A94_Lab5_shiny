@@ -7,8 +7,7 @@ shinyUI(fluidPage(
     mainPanel(
 
       plotOutput("output_plot"),
-      br(),
-      br(),
+p()
       tableOutput("output_table")
    )
   )
