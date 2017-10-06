@@ -43,11 +43,11 @@ shinyServer(function(input, output) {
       p<-ggplot()+
         aes(x = reorder(names(zz),as.numeric(as.character(zz))), y = as.numeric(as.character(zz))) +
         geom_bar(stat="identity",fill = "dark orange", colour = "black")+
-        theme_bw()+theme(axis.title.y = element_text(angle = 0, hjust = 1))+
-        xlab("Party") + ylab("Percent") + ggtitle(titel)+
+        theme_bw()+ xlab("Party") + ylab("Percent") + ggtitle(titel)+
         theme(panel.grid.major.x = element_blank(),
               panel.grid.minor.x = element_blank(),
               panel.grid.major.y = element_line(color = "dark grey"),
+              axis.title.y = element_text(angle = 0, hjust = 1),
               plot.title = element_text(hjust = 0.5,size=22))
       p
     })
