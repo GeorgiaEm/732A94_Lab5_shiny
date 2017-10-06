@@ -19,8 +19,12 @@ shinyServer(function(input, output) {
       zz <<- get(input$valdata)
       if (is.null(input$county))
         return()
+
+      kommun_ <<- zz[zz[,4]==input$county,4]
       zz <<- zz[zz[,4]==input$county,seq(6,20,2)]
       names(zz)<<-str_sub(names(zz), start=1,end= -6)
+      titel<-paste("The percentage of votes on each party in",kommun_,sep = " ")
+      titel
       zz
     })
     output$output_plot <- renderPlot({
@@ -44,7 +48,8 @@ shinyServer(function(input, output) {
         theme(panel.grid.major.x = element_blank(),
               panel.grid.minor.x = element_blank(),
               panel.grid.major.y = element_line(color = "dark grey"),
-              plot.title = element_text(hjust = 0.5))
+              plot.title = element_text(hjust = 0.5),
+              plot.title = element_text(size=22))
       p
     })
   })
