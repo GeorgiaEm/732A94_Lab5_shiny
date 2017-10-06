@@ -5,9 +5,7 @@ shinyUI(fluidPage(
       uiOutput("choose_county"),
       p(a(href = "http://www.val.se/val/val2014/statistik/", "Valmyndigheten 2017"))),
     mainPanel(
-
       plotOutput("output_plot"),
-p()
       tableOutput("output_table")
    )
   )
