@@ -9,19 +9,19 @@ shinyServer(function(input, output) {
     output$choose_county <- renderUI({
       if(is.null(input$valdata))
         return()
-      zz <<- get(input$valdata)
-      kommun <<- zz$KOMMUN
+      zz <- get(input$valdata)
+      kommun <- zz$KOMMUN
       selectInput("county", "Choose county",kommun)
     })
 
     output$output_plot <- renderPlot({
       if(is.null(input$valdata) | is.null(input$county))
         return()
-      zz <<- get(input$valdata)
+      zz <- get(input$valdata)
 
-      kommun_ <<- zz[zz[,4]==input$county,4]
-      zz <<- zz[zz[,4]==input$county,seq(6,20,2)]
-      names(zz)<<-str_sub(names(zz), start=1,end= -6)
+      kommun_ <- zz[zz[,4]==input$county,4]
+      zz <- zz[zz[,4]==input$county,seq(6,20,2)]
+      names(zz)<-str_sub(names(zz), start=1,end= -6)
       
       titel<-paste("Distribution of the votes in",kommun_,sep = " ")
       
@@ -40,11 +40,11 @@ shinyServer(function(input, output) {
     output$output_table <- renderTable({
       if(is.null(input$valdata) | is.null(input$county))
         return()
-      zz <<- get(input$valdata)
+      zz <- get(input$valdata)
 
-      kommun_ <<- zz[zz[,4]==input$county,4]
-      zz <<- zz[zz[,4]==input$county,seq(6,20,2)]
-      names(zz)<<-str_sub(names(zz), start=1,end= -6)
+      kommun_ <- zz[zz[,4]==input$county,4]
+      zz <- zz[zz[,4]==input$county,seq(6,20,2)]
+      names(zz)<-str_sub(names(zz), start=1,end= -6)
       zz
     })
   })
