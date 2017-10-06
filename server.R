@@ -13,20 +13,7 @@ shinyServer(function(input, output) {
       kommun <<- zz$KOMMUN
       selectInput("county", "Choose county",kommun)
     })
-    output$output_table <- renderTable({
-      if(is.null(input$valdata))
-        return()
-      zz <<- get(input$valdata)
-      if (is.null(input$county))
-        return()
 
-      kommun_ <<- zz[zz[,4]==input$county,4]
-      zz <<- zz[zz[,4]==input$county,seq(6,20,2)]
-      names(zz)<<-str_sub(names(zz), start=1,end= -6)
-      titel<-paste("The percentage of votes on each party in",kommun_,sep = " ")
-      titel
-      zz
-    })
     output$output_plot <- renderPlot({
       if(is.null(input$valdata))
         return()
@@ -50,5 +37,17 @@ shinyServer(function(input, output) {
               axis.title.y = element_text(angle = 0, hjust = 1),
               plot.title = element_text(hjust = 0.5,size=22))
       p
+    })
+    output$output_table <- renderTable({
+      if(is.null(input$valdata))
+        return()
+      zz <<- get(input$valdata)
+      if (is.null(input$county))
+        return()
+      
+      kommun_ <<- zz[zz[,4]==input$county,4]
+      zz <<- zz[zz[,4]==input$county,seq(6,20,2)]
+      names(zz)<<-str_sub(names(zz), start=1,end= -6)
+      zz
     })
   })
