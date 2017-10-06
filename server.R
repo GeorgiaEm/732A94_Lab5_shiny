@@ -48,8 +48,7 @@ shinyServer(function(input, output) {
         theme(panel.grid.major.x = element_blank(),
               panel.grid.minor.x = element_blank(),
               panel.grid.major.y = element_line(color = "dark grey"),
-              plot.title = element_text(hjust = 0.5),
-              plot.title = element_text(size=22))
+              plot.title = element_text(hjust = 0.5,size=22))
       p
     })
   })
