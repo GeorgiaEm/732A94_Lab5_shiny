@@ -39,9 +39,12 @@ shinyServer(function(input, output) {
       p
     })
     output$output_table <- renderTable({
-      if(is.null(input$valdata)| is.null(input$county))
+      if(is.null(input$valdata))
         return()
-
+      zz <<- get(input$valdata)
+      if (is.null(input$county))
+        return()
+      
       kommun_ <<- zz[zz[,4]==input$county,4]
       zz <<- zz[zz[,4]==input$county,seq(6,20,2)]
       names(zz)<<-str_sub(names(zz), start=1,end= -6)
