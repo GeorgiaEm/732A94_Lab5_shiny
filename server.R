@@ -4,14 +4,14 @@ require(Val2014)
 val_data <- names(val2014())
 shinyServer(function(input, output) {
     output$choose_data <- renderUI({
-      selectInput("valdata", "Valdata", val_data)
+      selectInput("valdata", "Choose type of election", val_data)
     })
     output$choose_county <- renderUI({
       if(is.null(input$valdata))
         return()
       zz <<- get(input$valdata)
       kommun <<- zz$KOMMUN
-      selectInput("county", "Choose county",choices  = kommun,selected = kommun)
+      selectInput("county", "Choose county",kommun)
     })
     output$output_table <- renderTable({
       if(is.null(input$valdata))
@@ -33,7 +33,7 @@ shinyServer(function(input, output) {
       zz <<- zz[zz[,4]==input$county,seq(6,20,2)]
       names(zz)<<-str_sub(names(zz), start=1,end= -6)
       
-      titel<-paste("Fordelningen av rösterna i",kommun_,sep = " ")
+      titel<-paste("Distribution of the votes in",kommun_,sep = " ")
       
       
       p<-ggplot()+
@@ -41,8 +41,10 @@ shinyServer(function(input, output) {
         geom_bar(stat="identity",fill = "dark orange", colour = "black")+
         theme_bw()+theme(axis.title.y = element_text(angle = 0, hjust = 1))+
         xlab("Party") + ylab("Percent") + ggtitle(titel)+
-        theme(panel.grid.major.x = element_blank(),panel.grid.minor.x = element_blank())+
-        theme(panel.grid.major.y = element_line(color = "dark grey"))
+        theme(panel.grid.major.x = element_blank(),
+              panel.grid.minor.x = element_blank(),
+              panel.grid.major.y = element_line(color = "dark grey"),
+              plot.title = element_text(hjust = 0.5))
       p
     })
   })
