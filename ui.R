@@ -1,5 +1,5 @@
 shinyUI(fluidPage(
-  titlePanel("Distribution of the Swedish election 2014"),
+  titlePanel(title = "Distribution of the Swedish election 2014",windowTitle = "Distribution of the Swedish election 2014"),
     sidebarPanel(
       uiOutput("choose_data"),
       uiOutput("choose_county"),
