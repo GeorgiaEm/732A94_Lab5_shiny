@@ -2,6 +2,7 @@ library(shiny)
 library(shinythemes)
 require(Val2014)
 val_data <- names(val2014())
+
 shinyServer(function(input, output) {
     output$choose_data <- renderUI({
       selectInput("valdata", "Choose type of election", val_data)
