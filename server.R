@@ -1,6 +1,6 @@
 library(shiny)
 library(shinythemes)
-require(Val2014)
+
 data_sets <- names(val2014())
 shinyServer(function(input, output) {
   output$choose_dataset <- renderUI({
@@ -29,5 +29,3 @@ shinyServer(function(input, output) {
     p
   })
 })
-#runGitHub("GeorgiaEm/Lab5_shiny")
-#devtools::install_github("GeorgiaEm/732A94_Lab5")
