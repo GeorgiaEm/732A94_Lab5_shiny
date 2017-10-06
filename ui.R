@@ -1,4 +1,5 @@
-library(shiny)
+require(shiny)
+require(Val2014)
 ##Gör med dessa som vi gjorde med wiki_graph
 shinyUI(fluidPage(
   titlePanel("Distribution of the election 2014"),
