@@ -1,46 +1,46 @@
 library(shiny)
 library(shinythemes)
 require(Val2014)
-data_sets <- names(val2014())
+val_data <- names(val2014())
 shinyServer(function(input, output) {
-    output$choose_dataset <- renderUI({
-      selectInput("dataset", "Data set", data_sets)
+    output$choose_data <- renderUI({
+      selectInput("valdata", "Valdata", val_data)
     })
-    output$choose_columns <- renderUI({
-      if(is.null(input$dataset))
+    output$choose_county <- renderUI({
+      if(is.null(input$valdata))
         return()
-      dat <<- get(input$dataset)
-      kommun <<- dat$KOMMUN
-      selectInput("columns", "Choose columns",choices  = kommun,selected = kommun)
+      zz <<- get(input$valdata)
+      kommun <<- zz$KOMMUN
+      selectInput("county", "Choose county",choices  = kommun,selected = kommun)
     })
-    output$data_table <- renderTable({
-      if(is.null(input$dataset))
+    output$output_table <- renderTable({
+      if(is.null(input$valdata))
         return()
-      dat <<- get(input$dataset)
-      if (is.null(input$columns) || !(input$columns %in% dat$KOMMUN))
+      zz <<- get(input$valdata)
+      if (is.null(input$county))
         return()
-      dat <<- dat[dat[,4]==input$columns,seq(6,20,2)]
-      names(dat)<<-str_sub(names(dat), start=1,end= -6)
-      dat
+      zz <<- zz[zz[,4]==input$county,seq(6,20,2)]
+      names(zz)<<-str_sub(names(zz), start=1,end= -6)
+      zz
     })
-    output$distribution_plot <- renderPlot({
-      if(is.null(input$dataset))
+    output$output_plot <- renderPlot({
+      if(is.null(input$valdata))
         return()
-      dat <<- get(input$dataset)
-      if (is.null(input$columns) || !(input$columns %in% dat$KOMMUN))
+      zz <<- get(input$valdata)
+      if (is.null(input$county))
         return()
-      kommun_ <<- dat[dat[,4]==input$columns,4]
-      dat <<- dat[dat[,4]==input$columns,seq(6,20,2)]
-      names(dat)<<-str_sub(names(dat), start=1,end= -6)
+      kommun_ <<- zz[zz[,4]==input$county,4]
+      zz <<- zz[zz[,4]==input$county,seq(6,20,2)]
+      names(zz)<<-str_sub(names(zz), start=1,end= -6)
       
       titel<-paste("Fordelningen av rösterna i",kommun_,sep = " ")
       
       
       p<-ggplot()+
-        aes(x = reorder(names(dat),as.numeric(as.character(dat))), y = as.numeric(as.character(dat))) +
+        aes(x = reorder(names(zz),as.numeric(as.character(zz))), y = as.numeric(as.character(zz))) +
         geom_bar(stat="identity",fill = "dark orange", colour = "black")+
         theme_bw()+theme(axis.title.y = element_text(angle = 0, hjust = 1))+
-        xlab("Parti") + ylab("Procent") + ggtitle(titel)+
+        xlab("Party") + ylab("Percent") + ggtitle(titel)+
         theme(panel.grid.major.x = element_blank(),panel.grid.minor.x = element_blank())+
         theme(panel.grid.major.y = element_line(color = "dark grey"))
       p
